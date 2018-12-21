@@ -1,0 +1,116 @@
+{% extends 'layout/layout.html' %}
+{% block title %}
+    Bản đồ và phản hồi
+{% endblock  %}
+
+{% block content %}
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js"></script>
+
+    <script type="text/javascript">
+        function iniMap(){
+            var map = new google.maps.Map(document.getElementById('map'),{
+                center: {lat: {{Dia_chi.Vi_do}}, lng: {{Dia_chi.Kinh_do}}},
+                zoom:16                
+            });
+            var marker = new google.maps.Marker({
+                position: new google.maps.LatLng({{Dia_chi.Vi_do}}, {{Dia_chi.Kinh_do}}),
+                map: map
+            });
+        }
+    </script>
+<body onload="iniMap()"> 
+            <div class="CUA_SO_2" style="margin:15px">
+            <div class="container">
+                <div class="navbar-brand" style="color:green"><h1><span> Chọn 1 chi nhánh của Shop</span></h1></div>
+                <div class='row'>
+                    {% for dia_chi in Danh_sach_dia_chi %}
+                    <div class='col-md-4'>                  
+                        <form method="post" action="/contact">              
+                        <input type="hidden" name="Th_Ma_so" value="{{dia_chi.Ma_so}}"/>
+                        <p><button class="btn btn-primary" type="submit">{{dia_chi.Ten}}</button></p>
+                        </form>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+        <div class="CUA_SO_3" style="margin:15px">
+            <h1>{{Dia_chi.Ten}}</h1>
+            <div id="map" style="width:100%; height:450px;"></div>
+
+        </div>
+</body>
+<body>
+
+    <form method="POST" action="/contact">
+        <div class="CUA_SO_1" style="background-color:whitesmoke">
+            <div class="CUA_SO_1" style="background-color:whitesmoke">
+                <div class="GUI_Y_KIEN">
+                    <div class="container"  style="color:black">
+                        {{form.csrf_token}}
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th colspan="4" style="color:green">Gửi ý kiến - yêu cầu hỗ trợ</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>{{form.Th_Ho_ten.label}}</td>
+                                    <td>{{form.Th_Ho_ten}}</td>
+                                </tr>
+                                <tr>
+                                    <td>{{form.Th_Gioi_tinh.label}}</td>
+                                    <td>
+                                    {% for subfiled in form.Th_Gioi_tinh%}
+                                        {{subfiled}}
+                                        {{subfiled.label}}
+                                    {% endfor %}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>{{form.Th_Dia_chi.label}}</td>
+                                    <td>{{form.Th_Dia_chi}}</td>
+                                </tr>
+                                <tr>
+                                    <td>{{form.Th_Email.label}}</td>
+                                    <td>{{form.Th_Email}}</td>
+                                </tr>
+                                <tr>
+                                    <td>{{form.Th_Ly_do.label}}</td>
+                                    <td>{{form.Th_Ly_do}}</td>
+                                </tr>
+                                <tr>
+                                    <td>{{form.Th_Noi_dung.label}}</td>
+                                    <td>{{form.Th_Noi_dung}}</td>
+                                </tr>
+                            
+                                <tr>
+                                    <td colspan="2">{{form.Th_submit}} </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>         
+
+            {% for message in form.Th_Ho_ten.error %}
+            <div class = 'btn TOM_TAT' style='color=red'>{{message}}</div>
+            {%endfor%}
+
+            {% for message in form.Th_Email.error %}
+            <div class = 'btn TOM_TAT' style='color=red'>{{message}}</div>
+            {%endfor%}
+
+            <div class = 'btn TOM_TAT' style='color=blue'> Cam on quy khach. Chung toi se phan hoi trong thoi gian som nhat </div>
+            </div>
+            </div>
+            </div>
+
+        <div class="CUA_SO_2" style="margin:15px; color:black">
+            {{Chuoi_ket_qua}}  
+        </div>
+    </form>
+</body>
+{% endblock  %}

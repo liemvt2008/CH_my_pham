@@ -1,0 +1,78 @@
+	<header>	
+			<nav class="navbar navbar-expand-lg navbar-light bg-light">
+			<a class="navbar-brand" href="/"><h1><span>NaNa</span>Shop</h1></a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<ul class="navbar-nav mr-auto">
+				<li class="nav-item active">
+					<a class="nav-link" href="/">Trang chủ <span class="sr-only">(current)</span></a>
+				</li>
+				<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					Shopping
+					</a>
+					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+					<a class="dropdown-item" href="/danh_sach_sp">Danh sách sản phẩm</a>
+					<a class="dropdown-item" href="#">Chăm sóc da</a>
+					<a class="dropdown-item" href="#">Chăm sóc tóc</a>
+					<a class="dropdown-item" href="#">Chăm sóc cơ thể</a>
+					<a class="dropdown-item" href="#">Trang điểm và tẩy trang</a>				
+					<div class="dropdown-divider"></div>
+					<a class="dropdown-item" href="#">Sản phẩm khác</a>
+					</div>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="#">Tư Vấn</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="#">BLOG</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="/contact">Liên hệ</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="/about_us">Về chúng tôi</a>
+				</li>
+				</ul>
+				<form class="form-inline my-2 my-lg-0" method="POST">
+					<input class="form-control mr-sm-2" type="search" placeholder="Từ khóa" aria-label="Search" name="Th_Chuoi_Tra_cuu">
+					<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Tìm kiếm</button>
+					<div class="dropdown">
+						<button class="btn btn-outline-success my-2 my-sm-0 dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							Giỏ hàng của bạn
+						</button>
+						<div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu2">
+							<div class="container-fluid">
+								<div class="row">
+									<div class="col-md-12">
+										{% for san_pham in gio_hang %}
+											<div class="btn" style="text-align:left"> 
+												<img  style="width:60px;height:60px"  src={{san_pham["hinh"]}} alt="" />
+												{{san_pham["ten_san_pham"]}} - {{"{:,}".format(san_pham["don_gia"]).replace(",",".")}}
+												<div class='TOM_TAT' >
+												<form method="POST" action="/danh_sach_sp">
+													<input type="hidden" name="Th_Ma_so_1" value={{san_pham["ma_san_pham"]}}>
+													<input type="number" name="Th_So_luong_1" value={{san_pham["So_luong"]}} min="0" max="99">
+													<button class="btn btn-outline-success my-2 my-sm-1" type="submit">Cập nhật</button>
+												</form>	
+												</div>
+											</div> 
+										{% endfor %}
+									</div>
+								</div>
+								<div style="width:80%; text-align:right"><form method="post" action="/Dat_hang">  
+								&nbsp;&nbsp;&nbsp;<button class="btn btn-success" type="submit">Tiến hành đặt hàng</button>
+								</form></div>
+							</div>
+						</div>
+					</div>
+				</form>
+				<div>
+					{{Chuoi_HTML_Khach_hang}}
+				</div>
+			</div>
+			</nav>	
+	</header>

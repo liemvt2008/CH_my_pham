@@ -1,0 +1,70 @@
+{% extends 'layout/layout.html' %}
+
+{% block title %}
+    Đặt hàng
+{% endblock  %}
+
+{% block content %}
+<form method="POST" action="/Dat_hang">
+        <div class="CUA_SO_1" style="background-color:whitesmoke">      
+            <div class="CUA_SO_1" style="background-color:whitesmoke">
+                <div class="DAT_HANG">
+                    <div class="container-fluid" style="color:black">
+                        {{form.csrf_token}}
+                        <table class="table">
+                            <tr>
+                                <th colspan="2" style="color:green; text-align: center"> Điền thông tin liên hệ hoặc
+                                <a colspan="2" style="color:green; text-align: center" href="/Dang_nhap"> Đăng nhập </a> 
+                                </th>
+                            </tr>
+                            <tbody>
+                                <tr>
+                                    <td>{{form.Th_Ho_ten.label}}</td>
+                                    <td>{{form.Th_Ho_ten}}</td>
+                                </tr>
+                                <tr>
+                                    <td>{{form.Th_Gioi_tinh.label}}</td>
+                                    <td>
+                                    {% for subfiled in form.Th_Gioi_tinh%}
+                                        {{subfiled}}
+                                        {{subfiled.label}}
+                                    {% endfor %}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>{{form.Th_Dia_chi.label}}</td>
+                                    <td>{{form.Th_Dia_chi}}</td>
+                                </tr>                                
+                                <tr>
+                                    <td>{{form.Th_Email.label}}</td>
+                                    <td>{{form.Th_Email}}</td>
+                                </tr>
+                                <tr>
+                                    <td>{{form.Th_Dien_thoai.label}}</td>
+                                    <td>{{form.Th_Dien_thoai}}</td>
+                                </tr>                                
+                                <tr>
+                                    <td colspan="2"> {{form.Th_submit}}</td>                                    
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>         
+
+            {% for message in form.Th_Ho_ten.error %}
+            <div class = 'btn TOM_TAT' style='color=red'>{{message}}</div>
+            {% endfor %}
+
+            {% for message in form.Th_Email.error %}
+            <div class = 'btn TOM_TAT' style='color=red'>{{message}}</div>
+            {% endfor %}
+            </div>
+            </div>
+
+        <div class="CUA_SO_2" style="margin:30px; color:green">
+            {{Chuoi_ket_qua}}  
+        </div>
+    </form>
+</body>
+{% endblock  %}

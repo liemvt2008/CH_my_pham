@@ -1,0 +1,32 @@
+{% extends 'layout/layout.html' %}
+{% block title %}
+    Đăng Nhập Admin
+{% endblock  %}
+
+{% block content %}
+<body style="font-family:Arial;width:100%;box-sizing:border-box;margin:0px;padding:0px;overflow-x:hidden;text-align: center"
+      class="container-fluid">
+    <form method="POST" action="">
+        <div class="CUA_SO_1" style="background-color:whitesmoke">           
+             
+            <div class="DANG_NHAP">               
+                <div class="alert" style="height:30px">
+                    <input name="Th_Ten_dang_nhap_admin" spellcheck="false" autocomplete="off" placeholder="Ten dang nhap" value="liemvt2008@gmail.com"
+                        required/>
+                </div>
+                <div class="alert" style="height:30px">
+                    <input name="Th_Mat_khau_admin" type="password" spellcheck="false" autocomplete="off" placeholder="Nhap mat khau" value="123456"
+                        required/>
+                </div>
+                <div class="alert" style="height:90px">
+                    <button class="btn btn-primary" type="submit">Đồng ý</button>
+                </div>            
+            </div>
+        </div>  
+        <div class="CUA_SO_2" style="margin:50px; color:black">
+            {{Chuoi_Thong_bao}}  
+        </div>    
+    </form>
+    
+</body>
+{% endblock  %}
